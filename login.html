@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - CivicVision AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<div class="hero">
+  <div class="glass-card">
+    <h1>User Login</h1>
+
+    <input type="email" id="email" placeholder="Email" class="input">
+    <input type="password" id="password" placeholder="Password" class="input">
+
+    <button class="btn-glow large" onclick="handleLogin()">Login</button>
+
+    <p style="margin-top:15px;">
+      Don't have account?
+      <a href="register.html" style="color:#00ff99;">Register</a>
+    </p>
+  </div>
+</div>
+
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+
+<script>
+function handleLogin() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    loginUser(email, password);
+}
+</script>
+
+</body>
+</html>

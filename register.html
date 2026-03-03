@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register - CivicVision AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<div class="hero">
+  <div class="glass-card">
+
+    <h1>Create Account</h1>
+
+    <!-- Email -->
+    <input 
+      type="email" 
+      id="email" 
+      placeholder="Enter your email" 
+      class="input"
+      required
+    >
+
+    <!-- Password -->
+    <input 
+      type="password" 
+      id="password" 
+      placeholder="Create password" 
+      class="input"
+      required
+    >
+
+    <!-- Register Button -->
+    <button 
+      class="btn-glow large" 
+      onclick="registerUser()"
+    >
+      Register
+    </button>
+
+    <p style="margin-top:15px;">
+      Already have an account?
+      <a href="login.html" style="color:#00ff99;">Login</a>
+    </p>
+
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+
+</body>
+</html>

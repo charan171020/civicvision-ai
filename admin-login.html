@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login - CivicVision AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<header>
+  <div class="logo">CivicVision <span>AI</span></div>
+</header>
+
+<section style="padding:80px 8%; display:flex; justify-content:center;">
+  <div class="glass-card" style="max-width:400px; width:100%;">
+    <h2 style="margin-bottom:20px;">Admin Login</h2>
+
+    <input type="email" id="adminEmail" placeholder="Admin Email" class="input">
+    <input type="password" id="adminPassword" placeholder="Password" class="input">
+
+    <button onclick="adminLogin()" class="btn-glow" style="width:100%;">
+      Login
+    </button>
+
+    <p id="adminError" style="color:red; margin-top:10px;"></p>
+  </div>
+</section>
+
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+
+<script>
+async function adminLogin() {
+
+    const email = document.getElementById("adminEmail").value;
+    const password = document.getElementById("adminPassword").value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+    });
+
+    if (error) {
+        document.getElementById("adminError").innerText = error.message;
+        return;
+    }
+
+    // Check role
+    const { data: profile } = await supabaseClient
+        .from("profiles")
+        .select("role")
+        .eq("id", data.user.id)
+        .single();
+
+    if (profile.role !== "admin") {
+        alert("Access Denied. Not an admin.");
+        await supabaseClient.auth.signOut();
+        return;
+    }
+
+    window.location.href = "admin-dashboard.html";
+}
+</script>
+
+</body>
+</html>

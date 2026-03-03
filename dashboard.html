@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Dashboard - CivicVision AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">CivicVision <span>AI</span></div>
+  <div>
+    <a href="upload.html" class="btn-glow">Report Issue</a>
+    <button onclick="logoutUser()" class="btn-outline">Logout</button>
+  </div>
+</header>
+
+<section style="padding: 40px 8%;">
+
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2>My Reports</h2>
+
+    <div>
+      <button class="btn-outline" onclick="showCards()">Card View</button>
+      <button class="btn-outline" onclick="showMap()">Map View</button>
+    </div>
+  </div>
+
+  <div id="reportContainer" class="report-grid"></div>
+
+  <div id="mapContainer" style="display:none; margin-top:30px;">
+    <div id="map" style="height:500px; border-radius:20px;"></div>
+  </div>
+
+</section>
+
+<!-- JS FILES -->
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/user.js"></script>
+<script src="js/map-dashboard.js"></script>
+
+<script>
+  protectPage();
+</script>
+
+</body>
+</html>

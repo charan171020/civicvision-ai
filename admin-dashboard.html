@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - CivicVision AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">CivicVision <span>AI</span></div>
+  <button onclick="logoutUser()" class="btn-outline">Logout</button>
+</header>
+
+<section style="padding: 40px 8%;">
+
+  <h2 style="margin-bottom: 30px;">Admin Control Panel</h2>
+
+  <!-- ========================= -->
+  <!-- STATS -->
+  <!-- ========================= -->
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Total</h3>
+      <p id="totalCount">0</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Pending</h3>
+      <p id="pendingCount">0</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Cleared</h3>
+      <p id="clearedCount">0</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Rejected</h3>
+      <p id="rejectedCount">0</p>
+    </div>
+  </div>
+
+  <!-- ========================= -->
+  <!-- REPORTS GRID -->
+  <!-- ========================= -->
+
+  <div id="adminReports" class="report-grid"></div>
+
+  <!-- ========================= -->
+  <!-- MAP -->
+  <!-- ========================= -->
+
+  <div style="margin-top:40px;">
+    <h3 style="margin-bottom:15px;">Reports Map</h3>
+    <div id="adminMap" style="height:500px; border-radius:20px;"></div>
+  </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- JS FILES -->
+<!-- ========================= -->
+
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+
+<script>
+async function protectAdmin() {
+
+    const { data } = await supabaseClient.auth.getSession();
+
+    if (!data.session) {
+        window.location.href = "admin-login.html";
+        return;
+    }
+
+    const { data: profile } = await supabaseClient
+        .from("profiles")
+        .select("role")
+        .eq("id", data.session.user.id)
+        .single();
+
+    if (!profile || profile.role !== "admin") {
+        window.location.href = "dashboard.html";
+    }
+}
+
+protectAdmin();
+</script>
+
+</body>
+</html>
